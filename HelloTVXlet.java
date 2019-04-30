@@ -14,14 +14,14 @@ import org.havi.ui.event.HActionListener;
 public class HelloTVXlet implements Xlet, HActionListener {
 
     HScene scene = HSceneFactory.getInstance().getDefaultHScene();
-  
+    MyComponent mc2 = new MyComponent(0,0,720,600);
     public HelloTVXlet() {
         
     }
 
     public void initXlet(XletContext context)
     {
-      HStaticText hst = new HStaticText("Vraag 1",100,100,300,100);
+      HStaticText hst = new HStaticText("Vraag 1",250,300,300,100);
      //Tekst, X, Y, B, H
      
       hst.setBackgroundMode(HVisible.BACKGROUND_FILL);
@@ -29,19 +29,19 @@ public class HelloTVXlet implements Xlet, HActionListener {
       
       scene.add(hst);
       
-      HTextButton knop1 = new HTextButton("Antwoord 1", 100,300,100,100);
+      HTextButton knop1 = new HTextButton("Antwoord 1", 75,450,150,100);
       knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
       knop1.setBackground(Color.BLUE);
       
-       HTextButton knop2 = new HTextButton("Antwoord 2", 100,450,100,100);
+       HTextButton knop2 = new HTextButton("Antwoord 2", 225,450,150,100);
       knop2.setBackgroundMode(HVisible.BACKGROUND_FILL);
       knop2.setBackground(Color.BLUE);
       
-       HTextButton knop3 = new HTextButton("Antwoord 3", 300,300,100,100);
+       HTextButton knop3 = new HTextButton("Antwoord 3", 375,450,150,100);
       knop3.setBackgroundMode(HVisible.BACKGROUND_FILL);
       knop3.setBackground(Color.BLUE);
       
-       HTextButton knop4 = new HTextButton("Antwoord 4", 300,450,100,100);
+       HTextButton knop4 = new HTextButton("Antwoord 4", 525,450,150,100);
       knop4.setBackgroundMode(HVisible.BACKGROUND_FILL);
       knop4.setBackground(Color.BLUE);
       
@@ -49,11 +49,11 @@ public class HelloTVXlet implements Xlet, HActionListener {
         scene.add(knop2);
           scene.add(knop3);
             scene.add(knop4);
-      
-      knop1.setFocusTraversal(null, knop2, null, knop3);
-         knop2.setFocusTraversal(knop1, null, null, knop4);
-            knop3.setFocusTraversal(null, knop4, knop1, null);
-               knop4.setFocusTraversal(knop3, null, knop2, null);
+     //up, down, left, right
+      knop1.setFocusTraversal(null, null, knop4, knop2);
+         knop2.setFocusTraversal(null, null, knop1, knop3);
+            knop3.setFocusTraversal(null, null, knop2, knop4);
+               knop4.setFocusTraversal(knop3, null, knop3, knop4);
                
         knop1.setActionCommand("knop1");
         knop1.addHActionListener(this);
@@ -67,9 +67,12 @@ public class HelloTVXlet implements Xlet, HActionListener {
          knop4.setActionCommand("knop4");
         knop4.addHActionListener(this);
         
+        scene.add(mc2);
         scene.validate();
         scene.setVisible(true);
         knop1.requestFocus();
+        
+       
     }
      
     public void actionPerformed(ActionEvent arg0)
