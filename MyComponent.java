@@ -26,7 +26,7 @@ public class MyComponent extends HComponent
   public MyComponent(int x, int y, int width, int hight)
   {
     this.setBounds(x, y, width, hight);
-    background = this.getToolkit().getImage("bom.PNG");
+    background = this.getToolkit().getImage("bom_good_resolution.PNG");
     
     MediaTracker mt = new MediaTracker(this);
     mt.addImage(background, 0);

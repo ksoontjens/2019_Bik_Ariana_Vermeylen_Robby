@@ -2,6 +2,7 @@ package hellotvxlet;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.util.Timer;
 import javax.tv.xlet.*;
 import org.havi.ui.HScene;
 import org.havi.ui.HSceneFactory;
@@ -14,21 +15,28 @@ import org.havi.ui.event.HActionListener;
 public class HelloTVXlet implements Xlet, HActionListener {
 
     HScene scene = HSceneFactory.getInstance().getDefaultHScene();
-    MyComponent mc2 = new MyComponent(0,0,720,600);
+    MyComponent mc2 = new MyComponent(0,0,720,576);
+    
+        
+    int seconds = 30;   
+    int minutes = 1;
+    int MAX = 60;
+    HStaticText timerText = new HStaticText(minutes + " : " + seconds, 325, 260,70,50);
     public HelloTVXlet() {
         
     }
 
     public void initXlet(XletContext context)
     {
-      HStaticText hst = new HStaticText("Vraag 1",250,300,300,100);
+        //QUESTION
+      HStaticText hst = new HStaticText("Vraag 1",0,25,800,75);
      //Tekst, X, Y, B, H
      
       hst.setBackgroundMode(HVisible.BACKGROUND_FILL);
       hst.setBackground(Color.BLUE);
       
       scene.add(hst);
-      
+      //KNOPPEN
       HTextButton knop1 = new HTextButton("Antwoord 1", 75,450,150,100);
       knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
       knop1.setBackground(Color.BLUE);
@@ -67,12 +75,47 @@ public class HelloTVXlet implements Xlet, HActionListener {
          knop4.setActionCommand("knop4");
         knop4.addHActionListener(this);
         
+        //TIMER
+         timerText = new HStaticText(minutes + " : " + seconds, 325, 260,70,50);
+         scene.add(timerText);             
+         scene.popToFront(timerText);
+
+        Timer timer = new Timer();
+        MijnTimerTask task =  new MijnTimerTask();
+        task.xlet=this;
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        
+        tick();  
+       
+        
         scene.add(mc2);
         scene.validate();
         scene.setVisible(true);
         knop1.requestFocus();
         
+        
+      
+     
        
+    }
+    public void tick()
+    {
+      //System.out.println("Tcik");
+       
+                if(seconds!=0)
+        {
+               timerText.setTextContent(minutes + " : " + seconds, HVisible.NORMAL_STATE);
+         System.out.println(minutes + " : " + seconds);
+scene.repaint();
+                 timerText.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                 timerText.setBackground(Color.BLACK);
+                 seconds--;
+        }
+        else
+        {
+            minutes--;
+            seconds =60;
+        }
     }
      
     public void actionPerformed(ActionEvent arg0)
