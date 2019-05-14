@@ -50,12 +50,13 @@ public class HelloTVXlet implements Xlet, HActionListener
      scene.repaint();
      
   }
+ 
  public void VoegVraagToe(String vraag, String ant1, String ant2, String ant3, String ant4, String juist) 
  {
      
  }
-         public void ToonVraag(int vr)
-         
+ 
+ public void ToonVraag(int vr)
  {
      switch (vr)
      {
@@ -106,6 +107,10 @@ public class HelloTVXlet implements Xlet, HActionListener
       scene.add(knop7);
       scene.add(knop8);
       
+      knop4.setEnabled(false);
+      
+      
+      
       knop1.setFocusTraversal(null, knop2, null, null);
       knop1.setFocusTraversal(knop1, knop3, null, null);
       knop1.requestFocus();
@@ -129,6 +134,8 @@ public class HelloTVXlet implements Xlet, HActionListener
       knop7.addHActionListener(this);
       knop8.setActionCommand("knop8");
       knop8.addHActionListener(this);
+      
+      
     
       
     /*  switch ()
@@ -156,49 +163,75 @@ public class HelloTVXlet implements Xlet, HActionListener
 
     public void actionPerformed(ActionEvent arg0)
     {
+        
     if (arg0.getActionCommand()=="knop1") // Informatica
     {
         VerwijderKnoppen();
+    do
+    {
         ToonVraag(1);
+    }while(arg0.getActionCommand()!="knop2");
+        
         
     }
     else if (arg0.getActionCommand()=="knop2")
     {
         VerwijderKnoppen();
+        do
+    {
         ToonVraag(2);
+    }while(arg0.getActionCommand()!="knop2");
+       
     }
     
     else if (arg0.getActionCommand()=="knop3")
     {
         VerwijderKnoppen();
+      do
+    {
         ToonVraag(3);
+    }while(arg0.getActionCommand()!="knop2");
     }
     else if (arg0.getActionCommand()=="knop4")
     {
         VerwijderKnoppen();
+        do
+    {
         ToonVraag(4);
+    }while(arg0.getActionCommand()!="knop2");
     }
     else if (arg0.getActionCommand()=="knop5")
     {
         VerwijderKnoppen();
+       do
+    {
         ToonVraag(5);
+    }while(arg0.getActionCommand()!="knop2");
     }
     else if (arg0.getActionCommand()=="knop6")
     {
         VerwijderKnoppen();
+       do
+    {
         ToonVraag(6);
+    }while(arg0.getActionCommand()!="knop2");
     }
     else if (arg0.getActionCommand()=="knop7")
     {
         VerwijderKnoppen();
+        do
+    {
         ToonVraag(7);
+    }while(arg0.getActionCommand()!="knop2");
     }
     else if (arg0.getActionCommand()=="knop8")
     {
         VerwijderKnoppen();
+        do
+    {
         ToonVraag(8);
+    }while(arg0.getActionCommand()!="knop2");
     }
-    
     
    }  
 }
