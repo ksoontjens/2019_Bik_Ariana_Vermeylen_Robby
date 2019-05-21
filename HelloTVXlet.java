@@ -1,8 +1,8 @@
-    
 package hellotvxlet;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
 import java.util.Timer;
 import javax.tv.xlet.*;
@@ -18,15 +18,17 @@ import org.havi.ui.event.HActionListener;
 public class HelloTVXlet implements Xlet, HActionListener {
 
     HScene scene = HSceneFactory.getInstance().getDefaultHScene();
-    mijnComponent mc2 = new mijnComponent(0,0,720,576);
-     HStaticText feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
+    MyComponent mc2 = new MyComponent(0,0,720,576);
+    HStaticText feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
 
-    
-        String juisteantwoord="";
+    static int count = 0;
+   static int amountOfQuestion = 0;
+    String juisteantwoord="";
     int seconds = 5;   
     int minutes = 0;
     int MAX = 60;
     HStaticText timerText = new HStaticText(minutes + " : " + seconds, 325, 260,70,50);
+    HStaticText score ;
     
     //Selectie
      //Tekst, X, Y, B, H
@@ -49,6 +51,23 @@ public class HelloTVXlet implements Xlet, HActionListener {
 
     public void initXlet(XletContext context)
     {
+      
+      knop1.setActionCommand("knop1");
+      knop1.addHActionListener(this);
+      knop2.setActionCommand("knop2");
+      knop2.addHActionListener(this);
+      knop3.setActionCommand("knop3");
+      knop3.addHActionListener(this);
+      knop4.setActionCommand("knop4");
+      knop4.addHActionListener(this);
+      knop5.setActionCommand("knop5");
+      knop5.addHActionListener(this);
+      knop6.setActionCommand("knop6");
+      knop6.addHActionListener(this);
+      knop7.setActionCommand("knop7");
+      knop7.addHActionListener(this);
+      knop8.setActionCommand("knop8");
+      knop8.addHActionListener(this);
        
         VoegSelectieKnoppenToe();
         
@@ -109,7 +128,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
              break;
              
              case 4:
-             VoegVraagToe ("Wat is de nationale bloem van Litouwen? ", "Tulp","Jasmijn","Wijnruit","Bibiscus","Wijnruit");
+             VoegVraagToe ("Wat is de nationale bloem van Litouwen? ", "Tulp","Jasmijn","Wijnruit","Hibiscus","Wijnruit");
              break;          
             
              
@@ -263,23 +282,6 @@ public class HelloTVXlet implements Xlet, HActionListener {
       // setfocustraversal
       // request focus
       
-      knop1.setActionCommand("knop1");
-      knop1.addHActionListener(this);
-      knop2.setActionCommand("knop2");
-      knop2.addHActionListener(this);
-      knop3.setActionCommand("knop3");
-      knop3.addHActionListener(this);
-      knop4.setActionCommand("knop4");
-      knop4.addHActionListener(this);
-      knop5.setActionCommand("knop5");
-      knop5.addHActionListener(this);
-      knop6.setActionCommand("knop6");
-      knop6.addHActionListener(this);
-      knop7.setActionCommand("knop7");
-      knop7.addHActionListener(this);
-      knop8.setActionCommand("knop8");
-      knop8.addHActionListener(this);
-      
        //up, down, left, right
         knop1.setFocusTraversal(null, knop2, knop6, knop2);
          knop2.setFocusTraversal(knop1, knop3, knop4, knop3);
@@ -293,7 +295,129 @@ public class HelloTVXlet implements Xlet, HActionListener {
     
     }
       
-    public void tick()
+   
+    public void actionPerformed(ActionEvent arg0)
+    {      
+        //vragen
+          if (arg0.getActionCommand()==juisteantwoord)
+          {
+             // System.out.println("juiste antwoord!!!");
+           feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
+            feedback.setBackground(Color.GREEN);
+            feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            scene.add(feedback);
+           
+           
+            scene.popToFront(mc2);
+             VoegSelectieKnoppenToe();
+             scene.popToFront(timerText);
+              scene.popToFront(feedback);
+              count+=1;
+              scene.repaint();
+          }
+         else if(arg0.getActionCommand()!=juisteantwoord)
+          {
+          //  System.out.println("FOUT!");
+            int y=0;
+            feedback = new HStaticText("FOUT!", 475, 400, 200, 100);
+            feedback.setBackground(Color.RED);
+            feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            scene.add(feedback);
+          //  count--;
+            
+             scene.popToFront(mc2);
+             VoegSelectieKnoppenToe();
+             scene.popToFront(timerText);
+             scene.popToFront(feedback);
+             
+             
+             scene.repaint();
+          
+          }
+        System.out.println("aq="+amountOfQuestion);
+        System.out.println("ac="+arg0.getActionCommand());
+        //hoofdmenu
+    if (arg0.getActionCommand()=="knop1") // Informatica
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+        scene.remove(feedback);
+        ToonVraag(1);
+
+        
+    }
+    else if (arg0.getActionCommand()=="knop2")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+   scene.remove(feedback);
+        ToonVraag(2);
+   
+       
+    }
+    
+    else if (arg0.getActionCommand()=="knop3")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+     scene.remove(feedback);
+        ToonVraag(3);
+   
+    }
+    else if (arg0.getActionCommand()=="knop4")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+     scene.remove(feedback);
+        ToonVraag(4);
+ 
+    }
+    else if (arg0.getActionCommand()=="knop5")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+    scene.remove(feedback);
+        ToonVraag(5);
+    
+    }
+    else if (arg0.getActionCommand()=="knop6")
+    {
+        VerwijderKnoppen();
+    scene.remove(feedback);
+        ToonVraag(6);
+    
+    }
+    else if (arg0.getActionCommand()=="knop7")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+    scene.remove(feedback);
+        ToonVraag(7);
+   
+    }
+    else if (arg0.getActionCommand()=="knop8")
+    {
+        VerwijderKnoppen();
+        amountOfQuestion+=1;
+      scene.remove(feedback);
+        ToonVraag(8);
+ 
+    }
+        
+    }
+
+    public void startXlet() {
+    
+    }
+
+    public void pauseXlet() {
+     
+    }
+
+    public void destroyXlet(boolean unconditional) {
+     
+    }
+   public void tick()
     {
       //System.out.println("Tcik");
        
@@ -315,9 +439,22 @@ scene.repaint();
                     
             Image explosion;
             explosion =scene.getToolkit().getImage("explosion2.gif"); 
-            HIcon icon=new HIcon(explosion,50,50,800,800);
-            scene.add(icon);
+            MediaTracker mt=new MediaTracker(scene);
+            mt.addImage(explosion, 1);
+            try{
+                    mt.waitForAll();
+            }
+            catch (Exception e) { }
+            System.out.println("explosion="+explosion.getWidth(scene));
+            HIcon icon=new HIcon(explosion,0,0,750,576);
+            scene.add(icon);            
             scene.popToFront(icon);
+                     score       = new HStaticText("Je score is: " + count + " / " + amountOfQuestion, 275,260,200,50);
+                score.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                 score.setBackground(Color.BLACK);
+ 
+                 scene.add(score);
+                 scene.popToFront(score);
             scene.repaint();
          }
         else
@@ -330,119 +467,5 @@ scene.repaint();
       
     }
      
-    public void actionPerformed(ActionEvent arg0)
-    {      
-        //vragen
-          if (arg0.getActionCommand()==juisteantwoord)
-          {
-             // System.out.println("juiste antwoord!!!");
-           feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
-            feedback.setBackground(Color.GREEN);
-            feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            scene.add(feedback);
-           
-           
-            scene.popToFront(mc2);
-             VoegSelectieKnoppenToe();
-             scene.popToFront(timerText);
-              scene.popToFront(feedback);
-             
-              scene.repaint();
-          }
-         else if(arg0.getActionCommand()!=juisteantwoord)
-          {
-          //  System.out.println("FOUT!");
-            int y=0;
-            feedback = new HStaticText("FOUT!", 475, 400, 200, 100);
-            feedback.setBackground(Color.RED);
-            feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            scene.add(feedback);
-            
-            
-             scene.popToFront(mc2);
-             VoegSelectieKnoppenToe();
-             scene.popToFront(timerText);
-             scene.popToFront(feedback);
-             
-             scene.repaint();
-          
-          }
-        
-        //hoofdmenu
-    if (arg0.getActionCommand()=="knop1") // Informatica
-    {
-        VerwijderKnoppen();
-        scene.remove(feedback);
-        ToonVraag(1);
-
-        
-    }
-    else if (arg0.getActionCommand()=="knop2")
-    {
-        VerwijderKnoppen();
-   scene.remove(feedback);
-        ToonVraag(2);
-   
-       
-    }
-    
-    else if (arg0.getActionCommand()=="knop3")
-    {
-        VerwijderKnoppen();
-   
-     scene.remove(feedback);
-        ToonVraag(3);
-   
-    }
-    else if (arg0.getActionCommand()=="knop4")
-    {
-        VerwijderKnoppen();
-     scene.remove(feedback);
-        ToonVraag(4);
- 
-    }
-    else if (arg0.getActionCommand()=="knop5")
-    {
-        VerwijderKnoppen();
-    scene.remove(feedback);
-        ToonVraag(5);
-    
-    }
-    else if (arg0.getActionCommand()=="knop6")
-    {
-        VerwijderKnoppen();
-    scene.remove(feedback);
-        ToonVraag(6);
-    
-    }
-    else if (arg0.getActionCommand()=="knop7")
-    {
-        VerwijderKnoppen();
-    scene.remove(feedback);
-        ToonVraag(7);
-   
-    }
-    else if (arg0.getActionCommand()=="knop8")
-    {
-        VerwijderKnoppen();
-      scene.remove(feedback);
-        ToonVraag(8);
- 
-    }
-        
-    }
-
-    public void startXlet() {
-    
-    }
-
-    public void pauseXlet() {
-     
-    }
-
-    public void destroyXlet(boolean unconditional) {
-     
-    }
-
     
 }
