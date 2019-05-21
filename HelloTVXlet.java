@@ -16,7 +16,8 @@ public class HelloTVXlet implements Xlet, HActionListener {
 
     HScene scene = HSceneFactory.getInstance().getDefaultHScene();
     MyComponent mc2 = new MyComponent(0,0,720,576);
-     HStaticText feedback = new HStaticText("JUIST!", 275, 150, 200, 100);
+     HStaticText feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
+
     
         String juisteantwoord="";
     int seconds = 30;   
@@ -110,7 +111,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
             
              
                case 5:
-             VoegVraagToe ("Wat was het eerste personage van de Marvel- strips waarvan er een speelfilm werd opgenomen? ", "Docter Strange","Spider-man","Howard TheDuck","Iron man","Howard The Duck");
+             VoegVraagToe ("Wat was het eerste personage van de Marvel- strips waarvan er een speelfilm werd opgenomen? ", "Docter Strange","Spider-man","Howard TheDuck","Iron man","Howard TheDuck");
              break;
              
                case 6:
@@ -122,7 +123,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
              break;
              
                case 8:
-             VoegVraagToe ("Wat is de chemische formule van kwarts? ", "C2H5OH (alcohol)","SIO2","PO43- (fosfaat)","CaCO3 (kalk)","SIO2");
+             VoegVraagToe ("Wat is de chemische formule van kwarts? ", "C2H5OH","SIO2","PO43","CaCO3","SIO2");
              break;
              
              
@@ -166,7 +167,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
           scene.add(knop11);
             scene.add(knop12);
      //up, down, left, right
-      knop9.setFocusTraversal(null, null, null, knop10);
+      knop9.setFocusTraversal(null, null, knop12, knop10);
          knop10.setFocusTraversal(null, null, knop9, knop11);
             knop11.setFocusTraversal(null, null, knop10, knop12);
                knop12.setFocusTraversal(null, null, knop11, knop9);
@@ -304,17 +305,15 @@ scene.repaint();
                  
                
         }
-        else
-        {
-                    
-            if(seconds == 0 && minutes == 0)
-                 {
+         else if(seconds == 0 && minutes == 0)
+         {
                     minutes = 0;
                     seconds = 0;
-                 }
+         }
+        else
+        {                   
             minutes--;
-            seconds =59;
-            
+            seconds =59;          
               
         }
         
@@ -327,7 +326,7 @@ scene.repaint();
           if (arg0.getActionCommand()==juisteantwoord)
           {
              // System.out.println("juiste antwoord!!!");
-           
+           feedback = new HStaticText("JUIST!", 75, 400, 200, 100);
             feedback.setBackground(Color.GREEN);
             feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
             scene.add(feedback);
@@ -340,18 +339,22 @@ scene.repaint();
              
               scene.repaint();
           }
-       /*   else if(arg0.getActionCommand()!=juisteantwoord)
+         else if(arg0.getActionCommand()!=juisteantwoord)
           {
           //  System.out.println("FOUT!");
-            HStaticText feedback = new HStaticText("FOUT!", 425, 100, 200, 100);
+            feedback = new HStaticText("FOUT!", 475, 400, 200, 100);
             feedback.setBackground(Color.RED);
             feedback.setBackgroundMode(HVisible.BACKGROUND_FILL);
             scene.add(feedback);
-            scene.popToFront(feedback);
-            scene.repaint();
+            
+             scene.popToFront(mc2);
+             VoegSelectieKnoppenToe();
+             scene.popToFront(timerText);
+             scene.popToFront(feedback);
+             scene.repaint();
           
           }
-        */
+        
         //hoofdmenu
     if (arg0.getActionCommand()=="knop1") // Informatica
     {
