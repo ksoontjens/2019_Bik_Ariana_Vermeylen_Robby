@@ -24,8 +24,8 @@ public class HelloTVXlet implements Xlet, HActionListener {
     static int count = 0;
    static int amountOfQuestion = 0;
     String juisteantwoord="";
-    int seconds = 5;   
-    int minutes = 0;
+    int seconds = 30;   
+    int minutes = 1;
     int MAX = 60;
     HStaticText timerText = new HStaticText(minutes + " : " + seconds, 325, 260,70,50);
     HStaticText score ;
